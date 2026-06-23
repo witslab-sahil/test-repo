@@ -1,4 +1,4 @@
-# cd-onboarding.yaml — Generated 2026-06-24 03:44:46 UTC
+# cd-onboarding.yaml — Generated 2026-06-24 03:50:23 UTC
 schemaVersion: "1.0"
 deployStrategy: rolling
 approvalRequired: true

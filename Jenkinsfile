@@ -80,9 +80,10 @@ pipeline {
       steps {
         sh '''
           docker rm -f ${APP_NAME}-smoke 2>/dev/null || true
-          docker run -d --name ${APP_NAME}-smoke -p 9090:8080 ${APP_NAME}:${APP_VERSION}
+          docker run -d --name ${APP_NAME}-smoke ${APP_NAME}:${APP_VERSION}
           sleep 5
-          curl -f http://localhost:9090/health || (docker rm -f ${APP_NAME}-smoke && exit 1)
+          SMOKE_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ${APP_NAME}-smoke)
+          curl -f http://${SMOKE_IP}:8080/health || (docker rm -f ${APP_NAME}-smoke && exit 1)
           echo "[SMOKE] Health check passed on /health"
           docker rm -f ${APP_NAME}-smoke
         '''
