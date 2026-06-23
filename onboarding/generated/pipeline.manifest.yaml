@@ -1,4 +1,4 @@
-# application-onboarding.yaml — Generated 2026-06-24 02:33:00 UTC
+# application-onboarding.yaml — Generated 2026-06-24 02:42:12 UTC
 schemaVersion: "1.0"
 type: react
 languageVersion: "18"
@@ -16,7 +16,7 @@ buildCommand: npm run build
 testCommand: npm test
 
 ---
-# ci-onboarding.yaml — Generated 2026-06-24 02:33:00 UTC
+# ci-onboarding.yaml — Generated 2026-06-24 02:42:12 UTC
 schemaVersion: "1.0"
 triggers:
   - push
@@ -49,7 +49,7 @@ stages:
       command: sh onboarding/ci/build/default-build.sh
 
 ---
-# cd-onboarding.yaml — Generated 2026-06-24 02:33:00 UTC
+# cd-onboarding.yaml — Generated 2026-06-24 02:42:12 UTC
 schemaVersion: "1.0"
 deployStrategy: rolling
 approvalRequired: true
