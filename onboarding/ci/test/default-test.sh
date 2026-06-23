@@ -14,6 +14,9 @@ elif [ -f "package.json" ]; then
     npm test
 elif [ -f "requirements.txt" ] || [ -f "pyproject.toml" ]; then
     echo "[TEST] Detected Python project"
+    pip install --upgrade pip
+    if [ -f "requirements-dev.txt" ]; then pip install -r requirements-dev.txt; elif [ -f "requirements.txt" ]; then pip install -r requirements.txt; fi
+    pip install pytest
     pytest --tb=short
 elif [ -f "go.mod" ]; then
     echo "[TEST] Detected Go project"
