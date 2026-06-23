@@ -14,7 +14,8 @@ elif [ -f "package.json" ]; then
     npm install --ci && npm run build
 elif [ -f "requirements.txt" ] || [ -f "pyproject.toml" ]; then
     echo "[BUILD] Detected Python project"
-    pip install --upgrade pip && pip install -r requirements.txt && python -m build
+    pip install --upgrade pip && pip install -r requirements.txt
+    if [ -f "pyproject.toml" ] || [ -f "setup.py" ]; then pip install build && python -m build; fi
 elif [ -f "go.mod" ]; then
     echo "[BUILD] Detected Go project"
     go build ./...
