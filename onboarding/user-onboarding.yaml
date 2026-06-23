@@ -1,0 +1,20 @@
+# user-onboarding.yaml — Generated 2026-06-24 02:00:31 UTC
+schemaVersion: "1.0"
+team: EA
+serviceName: test-repo
+repository:
+  url: https://github.com/witslab-sahil/test-repo.git
+  defaultBranch: main
+environmentLabels:
+  - dev
+  - uat
+contacts:
+  primary: sahil.sharma_wit@npci.org.in
+  secondary: platform-oncall@npci.org.in
+  slackChannel: "#EA-ci"
+governance:
+  approvalGates:
+    - environment: uat
+      requiredApprovers: 1
+  notificationChannels:
+    - slack:#EA-releases

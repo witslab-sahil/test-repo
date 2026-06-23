@@ -1,0 +1,16 @@
+# application-onboarding.yaml — Generated 2026-06-24 02:00:31 UTC
+schemaVersion: "1.0"
+type: react
+languageVersion: "18"
+packageManager: npm
+artifactName: test-repo
+artifactPath: dist/
+dockerfile:
+  enabled: true
+  path: Dockerfile
+deployTarget:
+  platform: kubernetes
+  namespace: enterprise-architect
+  cluster: prod-cluster-01
+buildCommand: npm run build
+testCommand: npm test
