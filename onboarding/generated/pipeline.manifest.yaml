@@ -1,22 +1,22 @@
-# application-onboarding.yaml — Generated 2026-06-24 02:58:21 UTC
+# application-onboarding.yaml — Generated 2026-06-24 03:20:42 UTC
 schemaVersion: "1.0"
 type: python
 languageVersion: "3.11"
 packageManager: pip
-artifactName: test-repo
-artifactPath: dist/test-repo.whl
+artifactName: some-service
+artifactPath: dist/some-service.whl
 dockerfile:
   enabled: true
   path: Dockerfile
 deployTarget:
   platform: kubernetes
-  namespace: enterprise-architect
+  namespace: payment-ns
   cluster: prod-cluster-01
 buildCommand: pip install -r requirements.txt
 testCommand: pytest
 
 ---
-# ci-onboarding.yaml — Generated 2026-06-24 02:58:21 UTC
+# ci-onboarding.yaml — Generated 2026-06-24 03:20:42 UTC
 schemaVersion: "1.0"
 triggers:
   - push
@@ -49,7 +49,7 @@ stages:
       command: sh onboarding/ci/build/default-build.sh
 
 ---
-# cd-onboarding.yaml — Generated 2026-06-24 02:58:21 UTC
+# cd-onboarding.yaml — Generated 2026-06-24 03:20:42 UTC
 schemaVersion: "1.0"
 deployStrategy: rolling
 approvalRequired: true
@@ -57,12 +57,12 @@ stages:
   - id: smoke
     enabled: true
     config:
-      healthCheckUrl: https://test-repo.dev.npci.org.in/health
+      healthCheckUrl: https://some-service.dev.npci.org.in/health
       timeoutSeconds: 120
   - id: load
     enabled: true
     config:
-      scenarioFile: tests/load/test-repo-load.jmx
+      scenarioFile: tests/load/some-service-load.jmx
       virtualUsers: 50
       durationMinutes: 10
   - id: deploy-dev
@@ -73,12 +73,12 @@ stages:
       entryCommand: kubectl apply -f k8s/dev/
       rollbackOnFailure: true
       approvalGate: false
-  - id: deploy-uat
+  - id: deploy-staging
     enabled: true
     config:
-      environment: uat
+      environment: staging
       strategy: canary
-      entryCommand: kubectl apply -f k8s/uat/
+      entryCommand: kubectl apply -f k8s/staging/
       rollbackOnFailure: true
       approvalGate: true
       canaryWeight: 20
