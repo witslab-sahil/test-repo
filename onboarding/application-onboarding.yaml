@@ -1,16 +1,16 @@
-# application-onboarding.yaml — Generated 2026-06-24 03:20:42 UTC
+# application-onboarding.yaml — Generated 2026-06-24 03:44:46 UTC
 schemaVersion: "1.0"
 type: python
 languageVersion: "3.11"
 packageManager: pip
-artifactName: some-service
-artifactPath: dist/some-service.whl
+artifactName: test-repo
+artifactPath: dist/test-repo.whl
 dockerfile:
   enabled: true
   path: Dockerfile
 deployTarget:
   platform: kubernetes
-  namespace: payment-ns
+  namespace: enterprise-architect
   cluster: prod-cluster-01
 buildCommand: pip install -r requirements.txt
 testCommand: pytest
