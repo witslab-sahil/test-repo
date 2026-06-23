@@ -69,10 +69,14 @@ pipeline {
 
   post {
     success {
-      mail to: 'sahil.sharma_wit@npci.org.in', subject: "✅ ${APP_NAME} #${BUILD_NUMBER} passed", body: "${BUILD_URL}"
+      catchError(buildResult: currentBuild.currentResult, stageResult: 'UNSTABLE') {
+        mail to: 'sahil.sharma_wit@npci.org.in', subject: "✅ ${APP_NAME} #${BUILD_NUMBER} passed", body: "${BUILD_URL}"
+      }
     }
     failure {
-      mail to: 'sahil.sharma_wit@npci.org.in', subject: "❌ ${APP_NAME} #${BUILD_NUMBER} failed", body: "${BUILD_URL}"
+      catchError(buildResult: currentBuild.currentResult, stageResult: 'UNSTABLE') {
+        mail to: 'sahil.sharma_wit@npci.org.in', subject: "❌ ${APP_NAME} #${BUILD_NUMBER} failed", body: "${BUILD_URL}"
+      }
     }
     always {
       echo "Pipeline finished with status: ${currentBuild.currentResult}"
