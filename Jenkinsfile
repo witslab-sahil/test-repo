@@ -19,16 +19,13 @@ pipeline {
   // or add  triggers { pollSCM('H/5 * * * *') }  to poll for changes instead.
 
   stages {
-    stage('Checkout') {
-      steps {
-        git branch: 'main', url: 'https://github.com/witslab-sahil/test-repo.git', credentialsId: 'git-npci-creds'
-      }
-    }
     stage('Build') {
       steps {
         sh '''
         docker run --rm \
         --volumes-from jenkins-10 \
+        -v ci-pip-cache:/root/.cache/pip \
+        -v ci-npm-cache:/root/.npm \
         -w "$PWD" \
         python:3.11 \
         sh onboarding/ci/build/default-build.sh
@@ -41,6 +38,8 @@ pipeline {
         sh '''
         docker run --rm \
         --volumes-from jenkins-10 \
+        -v ci-pip-cache:/root/.cache/pip \
+        -v ci-npm-cache:/root/.npm \
         -w "$PWD" \
         python:3.11 \
         sh onboarding/ci/test/default-test.sh
